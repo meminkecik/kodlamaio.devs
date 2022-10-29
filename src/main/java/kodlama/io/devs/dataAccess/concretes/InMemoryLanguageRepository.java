@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 @Repository
 public class InMemoryLanguageRepository implements LanguageRepository {
-    List<Language> languages;
+    public List<Language> languages;
 
     public InMemoryLanguageRepository() {
         languages = new ArrayList<Language>();
@@ -54,5 +54,8 @@ public class InMemoryLanguageRepository implements LanguageRepository {
                 languages.remove(i);
             }
         }
+    }
+    public List<Language> getList(){
+        return languages;
     }
 }

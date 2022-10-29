@@ -16,13 +16,13 @@ public class DevsApplication {
 		LanguageManager languageManager = new LanguageManager(new InMemoryLanguageRepository());
 		Language language1 = new Language();
 		language1.setId(6);
-		language1.setName("Dart");
+		language1.setName("PHP");
 		languageManager.addLanguage(language1);
 		Language language2 = new Language();
 		language2.setId(7);
-		language2.setName("PHP");
+		language2.setName("Script");
 		languageManager.updateLanguage(5,language2);
-		languageManager.getById(7);
+
 	}
 
 

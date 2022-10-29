@@ -10,4 +10,5 @@ public interface LanguageRepository {
     void addLanguage(Language language);
     void updateLanguage(int id, Language language);
     void removeLanguage(int id);
+    List<Language> getList();
 }

@@ -10,8 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 @Service
 public class LanguageManager implements LanguageService {
-    List<Language> languageList;
+
     private LanguageRepository languageRepository;
+    List<Language> languageList;
     @Autowired
     public LanguageManager(LanguageRepository languageRepository) {
         this.languageRepository = languageRepository;
@@ -29,26 +30,40 @@ public class LanguageManager implements LanguageService {
 
     @Override
     public void addLanguage(Language language) {
-        languageList = languageRepository.getAll();
-        for (int i = 0; i<languageList.size();i++){
-            if (languageList.get(i).getId() == language.getId()){
-                System.out.println("Bu id mevcuttur. Lütfen farklı bir id giriniz.");
-            } if (languageList.get(i).getName()==language.getName()) {
-                System.out.println("Bu dil mevcuttur. Lütfen farklı bir dil giriniz.");
-            }else {
-                languageRepository.addLanguage(language);
-            }
+        if (isUnique(language)){
+            languageRepository.addLanguage(language);
+            System.out.println("Eklendi : " + language.getName());
+        }else {
+            System.out.println("Eklenemedi.");
         }
-        System.out.println("Dil eklendi : " +language.getName());
     }
 
     @Override
     public void updateLanguage(int id, Language language) {
-    languageRepository.updateLanguage(id,language);
+        for (int i = 0; i<languageList.size();i++){
+            if (languageList.get(i).getId() == language.getId()){
+                id = i;
+            }
+        }
+        languageRepository.updateLanguage(id,language);
+
     }
 
     @Override
     public void removeLanguage(int id) {
     languageRepository.removeLanguage(id);
+    }
+    public boolean isUnique(Language language){
+        languageList = languageRepository.getList();
+        boolean unique = false;
+        for (int i = 0; i<languageList.size();i++){
+            if (languageList.get(i).getName().equalsIgnoreCase(language.getName()) || languageList.get(i).getId() == language.getId()){
+                unique = false;
+            }else {
+                unique = true;
+            }
+
+        }
+        return unique;
     }
 }
